@@ -1,3 +1,4 @@
+﻿using Npgsql;
 using System;
 using System.Data.SqlClient;
 
@@ -26,6 +27,30 @@ namespace AccessoDatabase
                         }
                     }
                 }
+            }
+
+            Console.WriteLine("\n\n\n");
+
+            // Connessione a Postgresql (codice ripetuto)
+            Console.WriteLine("**** Postgresql connection");
+            var connStringPostgresql = "Host=localhost;Username=mauro;Password=mauropostgresql;Database=bearzi";
+
+            using (var connPsql = new NpgsqlConnection(connStringPostgresql))
+            {
+                connPsql.Open();
+
+                using (var cmd = new NpgsqlCommand("SELECT * FROM persone", connPsql))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Console.WriteLine("Id:{0} Cognome:{1} Nome:{2}", reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
+                        }
+                            
+                    }
+                }
+                
             }
 
         }
