@@ -53,6 +53,12 @@ namespace AccessoDatabase
                 
             }
 
+            Console.WriteLine("\n\n\n");
+            Console.WriteLine("Problemi con questo codice:");
+            Console.WriteLine("1. Codice ripetuto");
+            Console.WriteLine("2. Configurazione connessione nel codice sorgente");
+            Console.WriteLine("2a. Devo ricompilare per modificare connessione");
+            Console.WriteLine("2b. Ho dati sensibili su git condivisi con gli altri utenti di git");
         }
     }
 }
