@@ -15,13 +15,15 @@ namespace AccessoDatabase
             {
                 conn.Open();
                 var sql = "select * from persone";
-                SqlCommand sqlCmd = new SqlCommand(sql, conn);
-                SqlDataReader dr = sqlCmd.ExecuteReader();
-                if (dr.HasRows)
+                using (SqlCommand sqlCmd = new SqlCommand(sql, conn))
                 {
-                    while (dr.Read())
+                    SqlDataReader dr = sqlCmd.ExecuteReader();
+                    if (dr.HasRows)
                     {
-                        Console.WriteLine("Id:{0} Cognome:{1} Nome:{2}",dr[0], dr[1], dr[2]);
+                        while (dr.Read())
+                        {
+                            Console.WriteLine("Id:{0} Cognome:{1} Nome:{2}", dr[0], dr[1], dr[2]);
+                        }
                     }
                 }
             }
