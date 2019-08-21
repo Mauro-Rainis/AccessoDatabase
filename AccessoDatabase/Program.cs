@@ -19,6 +19,10 @@ namespace AccessoDatabase
                 .AddJsonFile("appsettings.development.json", true, true)
                 .Build();
 
+            // Per utilizzare anche il file Secrets.json come fatto nella Web App vedi qua:
+            // https://stackoverflow.com/questions/42268265/how-to-get-manage-user-secrets-in-a-net-core-console-application
+            // https://www.twilio.com/blog/2018/05/user-secrets-in-a-net-core-console-app.html
+
             Console.WriteLine("**** SqlServer connection");
 
             // Connessione a SQLServer
