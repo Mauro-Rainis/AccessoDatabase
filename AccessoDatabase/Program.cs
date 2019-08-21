@@ -13,11 +13,15 @@ namespace AccessoDatabase
         static void Main(string[] args)
         {
             IConfiguration config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", true, true)
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile("appsettings.development.json", true, true)
                 .Build();
 
+            // I seguenti due metodi sono equivalenti
             Console.WriteLine(config["Segreto"]);
+            Console.WriteLine(config.GetSection("Segreto").Value);
+
             Console.WriteLine(config.GetConnectionString("DefaultConnection"));
 
             Console.WriteLine("**** SqlServer connection"); 
