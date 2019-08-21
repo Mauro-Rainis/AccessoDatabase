@@ -14,9 +14,10 @@ namespace AccessoDatabase
         {
             IConfiguration config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile("appsettings.development.json", true, true)
                 .Build();
 
-            Console.WriteLine(config["Author"]);
+            Console.WriteLine(config["Segreto"]);
             Console.WriteLine(config.GetConnectionString("DefaultConnection"));
 
             Console.WriteLine("**** SqlServer connection"); 
