@@ -1,6 +1,10 @@
 ﻿using Npgsql;
 using System;
 using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.FileExtensions;
+using Microsoft.Extensions.Configuration.Json;
+using System.IO;
 
 namespace AccessoDatabase
 {
@@ -8,6 +12,13 @@ namespace AccessoDatabase
     {
         static void Main(string[] args)
         {
+            IConfiguration config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", true, true)
+                .Build();
+
+            Console.WriteLine(config["Author"]);
+            Console.WriteLine(config.GetConnectionString("DefaultConnection"));
+
             Console.WriteLine("**** SqlServer connection"); 
 
             // Connessione a SQLServer
