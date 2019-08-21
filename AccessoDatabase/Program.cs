@@ -12,22 +12,18 @@ namespace AccessoDatabase
     {
         static void Main(string[] args)
         {
+            // Leggo i files di configurazione
             IConfiguration config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile("appsettings.development.json", true, true)
                 .Build();
 
-            // I seguenti due metodi sono equivalenti
-            Console.WriteLine(config["Segreto"]);
-            Console.WriteLine(config.GetSection("Segreto").Value);
-
-            Console.WriteLine(config.GetConnectionString("DefaultConnection"));
-
-            Console.WriteLine("**** SqlServer connection"); 
+            Console.WriteLine("**** SqlServer connection");
 
             // Connessione a SQLServer
-            var connStringSqlServer = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\mauro\\source\\repos\\_da_samsung\\AccessoDatabase\\AccessoDatabase\\BearziPersone.mdf;Integrated Security=True";
+            // Spostiamo la configurazione della connessione al database nel file di configurazione
+            var connStringSqlServer = config.GetConnectionString("SqlServer");
             using (var conn = new SqlConnection(connStringSqlServer))
             {
                 conn.Open();
@@ -49,7 +45,9 @@ namespace AccessoDatabase
 
             // Connessione a Postgresql (codice ripetuto)
             Console.WriteLine("**** Postgresql connection");
-            var connStringPostgresql = "Host=localhost;Username=mauro;Password=mauropostgresql;Database=bearzi";
+
+            // Spostiamo la configurazione della connessione al database nel file di configurazione
+            var connStringPostgresql = config.GetConnectionString("PostgreSql");
 
             using (var connPsql = new NpgsqlConnection(connStringPostgresql))
             {
