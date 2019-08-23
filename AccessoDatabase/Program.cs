@@ -11,10 +11,12 @@ namespace AccessoDatabase
 {
     class Program
     {
+        private static IConfiguration config;
+
         static void Main(string[] args)
         {
             // Leggo i files di configurazione
-            IConfiguration config = new ConfigurationBuilder()
+            config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile("appsettings.development.json", true, true)
@@ -25,8 +27,21 @@ namespace AccessoDatabase
             // https://www.twilio.com/blog/2018/05/user-secrets-in-a-net-core-console-app.html
 
             Console.WriteLine("**** SqlServer connection");
+            SqlServerSelect();
 
-            // Connessione a SQLServer
+            Console.WriteLine("\n\n\n");
+
+            Console.WriteLine("**** Postgresql connection");
+            PostgresqlSelect();
+
+            // In .NET Framework posso rimuovere il codice duplicato con una semplice chiamata
+            // a DbProviderFactories.GetFactory("System.Data.SqLite")
+            // https://docs.microsoft.com/en-us/dotnet/api/system.data.common.dbproviderfactories?view=netcore-2.2
+            GenericDbAccess();
+        }
+
+        private static void SqlServerSelect()
+        {
             var connStringSqlServer = config.GetConnectionString("SqlServer");
             using (var conn = new SqlConnection(connStringSqlServer))
             {
@@ -44,12 +59,10 @@ namespace AccessoDatabase
                     }
                 }
             }
+        }
 
-            Console.WriteLine("\n\n\n");
-
-            // Connessione a Postgresql (codice ripetuto)
-            Console.WriteLine("**** Postgresql connection");
-
+        private static void PostgresqlSelect()
+        {
             var connStringPostgresql = config.GetConnectionString("PostgreSql");
             using (var connPsql = new NpgsqlConnection(connStringPostgresql))
             {
@@ -65,14 +78,13 @@ namespace AccessoDatabase
                     }
                 }
             }
+        }
 
-            // In .NET Framework posso rimuovere il codice duplicato con una semplice chiamata
-            // a DbProviderFactories.GetFactory("System.Data.SqLite")
-            // https://docs.microsoft.com/en-us/dotnet/api/system.data.common.dbproviderfactories?view=netcore-2.2
-
+        private static void GenericDbAccess()
+        {
             Console.WriteLine("**** Generic database connection:");
             DbProviderFactories.RegisterFactory("SqlServer", SqlClientFactory.Instance);
-            
+
             var dbProvider = DbProviderFactories.GetFactory("SqlServer");
             using (var connection = dbProvider.CreateConnection())
             {
