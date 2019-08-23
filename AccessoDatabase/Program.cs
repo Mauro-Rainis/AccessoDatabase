@@ -68,8 +68,7 @@ namespace AccessoDatabase
 
             // In .NET Framework posso rimuovere il codice duplicato con una semplice chiamata
             // a DbProviderFactories.GetFactory("System.Data.SqLite")
-            // Questo non è ancora disponibile in .NET Core:
-            // https://weblog.west-wind.com/posts/2017/nov/27/working-around-the-lack-of-dynamic-dbproviderfactory-loading-in-net-core
+            // https://docs.microsoft.com/en-us/dotnet/api/system.data.common.dbproviderfactories?view=netcore-2.2
 
             Console.WriteLine("**** Generic database connection:");
             DbProviderFactories.RegisterFactory("SqlServer", SqlClientFactory.Instance);
