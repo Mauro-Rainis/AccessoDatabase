@@ -82,6 +82,8 @@ namespace AccessoDatabase
 
         private static void GenericDbAccess()
         {
+            // TODO Readme
+            // https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/obtaining-a-dbproviderfactory
             Console.WriteLine("**** Generic database connection:");
             DbProviderFactories.RegisterFactory("SqlServer", SqlClientFactory.Instance);
 
