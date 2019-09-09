@@ -11,7 +11,7 @@ namespace AccessoDatabase
             Console.WriteLine("**** SqlServer connection"); 
 
             // Connessione a SQLServer
-            var connStringSqlServer = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\mauro\\source\\repos\\_da_samsung\\AccessoDatabase\\AccessoDatabase\\BearziPersone.mdf;Integrated Security=True";
+            var connStringSqlServer = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\mauro\\source\\repos\\AccessoDatabase\\AccessoDatabase\\BearziPersone.mdf;Integrated Security=True";
             using (var conn = new SqlConnection(connStringSqlServer))
             {
                 conn.Open();
@@ -33,7 +33,7 @@ namespace AccessoDatabase
 
             // Connessione a Postgresql (codice ripetuto)
             Console.WriteLine("**** Postgresql connection");
-            var connStringPostgresql = "Host=localhost;Username=mauro;Password=mauropostgresql;Database=bearzi";
+            var connStringPostgresql = "Host=localhost;Username=mauro;Password=mauro;Database=bearzi";
 
             using (var connPsql = new NpgsqlConnection(connStringPostgresql))
             {
@@ -59,6 +59,7 @@ namespace AccessoDatabase
             Console.WriteLine("2. Configurazione connessione nel codice sorgente");
             Console.WriteLine("2a. Devo ricompilare per modificare connessione");
             Console.WriteLine("2b. Ho dati sensibili su git condivisi con gli altri utenti di git");
+            Console.ReadLine();
         }
     }
 }
