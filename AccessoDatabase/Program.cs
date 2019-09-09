@@ -10,7 +10,7 @@ namespace AccessoDatabase
             Console.WriteLine("**** SqlServer connection"); 
 
             // Connessione a SQLServer
-            var connStringSqlServer = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\mauro\\source\\repos\\_da_samsung\\AccessoDatabase\\AccessoDatabase\\BearziPersone.mdf;Integrated Security=True";
+            var connStringSqlServer = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\mauro\\source\\repos\\AccessoDatabase\\AccessoDatabase\\BearziPersone.mdf;Integrated Security=True";
             using (var conn = new SqlConnection(connStringSqlServer))
             {
                 conn.Open();
@@ -25,7 +25,7 @@ namespace AccessoDatabase
                     }
                 }
             }
-
+            Console.ReadKey();
         }
     }
 }
