@@ -26,18 +26,32 @@ namespace AccessoDatabase
             // https://stackoverflow.com/questions/42268265/how-to-get-manage-user-secrets-in-a-net-core-console-application
             // https://www.twilio.com/blog/2018/05/user-secrets-in-a-net-core-console-app.html
 
-            Console.WriteLine("**** SqlServer connection");
-            SqlServerSelect();
+            // Console.WriteLine("**** SqlServer connection");
+            // SqlServerSelect();
 
             Console.WriteLine("\n\n\n");
 
-            Console.WriteLine("**** Postgresql connection");
-            PostgresqlSelect();
+            // Console.WriteLine("**** Postgresql connection");
+            // PostgresqlSelect();
 
             // In .NET Framework posso rimuovere il codice duplicato con una semplice chiamata
             // a DbProviderFactories.GetFactory("System.Data.SqLite")
             // https://docs.microsoft.com/en-us/dotnet/api/system.data.common.dbproviderfactories?view=netcore-2.2
-            GenericDbAccess();
+            // var db = DbProviderFactories.GetFactory("SqlServer");
+
+            // Registro i db da utilizzare
+            DbProviderFactories.RegisterFactory("Postgresql", NpgsqlFactory.Instance);
+            DbProviderFactories.RegisterFactory("SqlServer", SqlClientFactory.Instance);
+
+            //var db = DbProviderFactories.GetFactory("Postgresql");
+            //var conn = config.GetConnectionString("PostgreSql");
+
+            var db = DbProviderFactories.GetFactory("SqlServer");
+            var conn = config.GetConnectionString("SqlServer");
+
+            GenericDbAccess(db, conn);
+
+            Console.ReadLine();
         }
 
         private static void SqlServerSelect()
@@ -80,17 +94,15 @@ namespace AccessoDatabase
             }
         }
 
-        private static void GenericDbAccess()
+        private static void GenericDbAccess(DbProviderFactory dbProvider, string conn)
         {
             // TODO Readme
             // https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/obtaining-a-dbproviderfactory
             Console.WriteLine("**** Generic database connection:");
-            DbProviderFactories.RegisterFactory("SqlServer", SqlClientFactory.Instance);
-
-            var dbProvider = DbProviderFactories.GetFactory("SqlServer");
+            
             using (var connection = dbProvider.CreateConnection())
             {
-                connection.ConnectionString = config.GetConnectionString("SqlServer");
+                connection.ConnectionString = conn;
                 connection.Open();
 
                 var cmd = dbProvider.CreateCommand();
