@@ -12,12 +12,31 @@
 <div class="text-center">
     Il valore della mia chiave segreta è: <b>@Model._configuration["segreto"]</b>
     <br />
-    Data: @Model._configuration["data"]
     <br />
-    Numero: @Model._configuration["numero"]
+
+    
+</div>
+
+
+<div class="alert-danger">
+    I seguenti parametri NON sono tipizzati, vengono tutti letti come stringhe.
+    NON ho l'assistenza dell'intellisense in Visual Studio quando li richiamo e li uso.
     <br />
-    Parola: @Model._configuration["parola"]
+    Non posso fare affidamento sui valori inseriti.
     <br />
-    Booleano: @Model._configuration["booleano"]
+    Potrei mettere una stringa al posto della data o del booleano e avrei un errore solo a runtime.
+    <br /><br />
+    <b>Data:</b> @Model._configuration["data"]
     <br />
+    <b>Numero:</b> @Model._configuration["numero"]
+    <br />
+    <b>Parola:</b> @Model._configuration["parola"]
+    <br />
+    <b>Booleano:</b> @Model._configuration["booleano"]
+    <br />
+</div>
+
+<div class="border-info">
+    <h2>Obiettivo</h2>
+    Leggere i dati di configurazione in maniera fortemente tipizzata.
 </div>
